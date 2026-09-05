@@ -1,6 +1,6 @@
 # Spec 01: Repository Foundations
 
-- **Status**: Not Started
+- **Status**: Done
 - **Phase**: 1
 - **Depends on**: none
 - **Owns**: repo root, `/services/*` (empty scaffolds), `/packages/*` (empty
@@ -57,17 +57,17 @@ proving they work against a trivial fixture:
 
 ## Acceptance Criteria
 
-- [ ] Directory structure matches the architecture doc exactly (`/services`,
+- [x] Directory structure matches the architecture doc exactly (`/services`,
       `/packages`, `/infra`).
-- [ ] `pytest -m unit` runs successfully from repo root with zero tests
+- [x] `pytest -m unit` runs successfully from repo root with zero tests
       (after throwaway fixtures are removed) and zero configuration errors.
-- [ ] `ruff check .` and `ruff format --check .` both pass on a clean
+- [x] `ruff check .` and `ruff format --check .` both pass on a clean
       checkout.
-- [ ] `mypy .` (strict) passes on a clean checkout (nothing to type-check
+- [x] `mypy .` (strict) passes on a clean checkout (nothing to type-check
       yet, but config must be valid and runnable).
-- [ ] `pre-commit run --all-files` passes.
-- [ ] Each service/package directory has its own `pyproject.toml` that
+- [x] `pre-commit run --all-files` passes.
+- [x] Each service/package directory has its own `pyproject.toml` that
       resolves via the root workspace tool without dependency conflicts.
-- [ ] Each service has a placeholder `Dockerfile` that builds successfully
+- [x] Each service has a placeholder `Dockerfile` that builds successfully
       (`docker build` exits 0) even though it runs nothing meaningful yet.
-- [ ] `.env.example` exists and is referenced from the root `README.md`.
+- [x] `.env.example` exists and is referenced from the root `README.md`.

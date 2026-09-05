@@ -1,0 +1,42 @@
+[project]
+name = "warden"
+version = "0.0.0"
+description = "Self-hosted AI code review and coding agent orchestration"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = []
+
+[dependency-groups]
+dev = [
+    "mypy>=1.11,<2",
+    "pre-commit>=4,<5",
+    "pytest>=8,<9",
+    "ruff>=0.12,<1",
+]
+
+[tool.uv]
+package = false
+
+[tool.uv.workspace]
+members = ["packages/*", "services/*"]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 88
+extend-exclude = ["design"]
+
+[tool.ruff.lint]
+select = ["B", "E", "F", "I", "UP"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+exclude = ["^\\.venv/", "^design/"]
+
+[tool.pytest.ini_options]
+addopts = "-m 'not integration'"
+testpaths = ["packages", "services"]
+markers = [
+    "unit: isolated test with no external dependencies",
+    "integration: test requiring Docker, a database, or network access",
+]
