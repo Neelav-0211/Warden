@@ -1,11 +1,10 @@
 # Spec 03: Database Layer
 
-- **Status**: Not Started
+- **Status**: Done
 - **Phase**: 1
 - **Depends on**: 02
 - **Owns**: `packages/common/db/` (engine/session, base models), Alembic
-  migrations directory at repo root (`/infra/migrations` or per-package —
-  pick one location and document it here once decided)
+  migrations at repo root (`infra/migrations/`)
 
 ## Goal
 
@@ -75,13 +74,13 @@ before writing `models.py`/migration files.
 
 ## Acceptance Criteria
 
-- [ ] `alembic upgrade head` succeeds against a fresh Postgres 16 +
+- [x] `alembic upgrade head` succeeds against a fresh Postgres 16 +
       pgvector instance, verified in CI via `pg_container` fixture.
-- [ ] `alembic downgrade base` succeeds cleanly (round-trip verified).
-- [ ] All four ORM models exist with the columns listed above and are
+- [x] `alembic downgrade base` succeeds cleanly (round-trip verified).
+- [x] All four ORM models exist with the columns listed above and are
       covered by the unit metadata test.
-- [ ] `session_scope` commit/rollback behavior verified by test.
-- [ ] Integration tests run in CI via the `integration` pytest marker,
+- [x] `session_scope` commit/rollback behavior verified by test.
+- [x] Integration tests run in CI via the `integration` pytest marker,
       isolated from the default `unit` run (spec 01's marker scheme).
-- [ ] No service imports `sqlalchemy` directly for connection setup —
+- [x] No service imports `sqlalchemy` directly for connection setup —
       all go through `common.db`.

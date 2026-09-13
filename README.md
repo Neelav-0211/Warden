@@ -48,6 +48,12 @@ Run all unit tests from the repository root with:
 uv run --all-packages pytest -m unit
 ```
 
+Run Docker-backed PostgreSQL integration tests with:
+
+```console
+uv run --package warden-common pytest packages/common/tests -m integration
+```
+
 Run the `common` package tests with coverage and show uncovered lines with:
 
 ```console
