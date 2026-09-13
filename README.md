@@ -42,10 +42,24 @@ uv python install 3.12
 uv sync --all-packages
 ```
 
-Run the repository checks with:
+Run all unit tests from the repository root with:
 
 ```console
-uv run pytest -m unit
+uv run --all-packages pytest -m unit
+```
+
+Run the `common` package tests with coverage and show uncovered lines with:
+
+```console
+uv run --package warden-common --with pytest-cov pytest packages/common/tests -m unit --cov=common --cov-report=term-missing
+```
+
+Replace `--cov-report=term-missing` with `--cov-report=html` to generate a
+browsable report in `htmlcov/index.html`.
+
+Run the remaining repository checks with:
+
+```console
 uv run ruff check .
 uv run ruff format --check .
 uv run mypy .

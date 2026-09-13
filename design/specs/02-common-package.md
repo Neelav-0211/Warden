@@ -1,6 +1,6 @@
 # Spec 02: Common Package (`packages/common`)
 
-- **Status**: Not Started
+- **Status**: Done
 - **Phase**: 1
 - **Depends on**: 01
 - **Owns**: `packages/common/`
@@ -88,15 +88,15 @@ no Docker.
 
 ## Acceptance Criteria
 
-- [ ] `BaseAppSettings` fails fast with `ConfigError` listing every
+- [x] `BaseAppSettings` fails fast with `ConfigError` listing every
       missing field, verified by test.
-- [ ] `get_logger`/`bind_context` produce structured logs with bound
+- [x] `get_logger`/`bind_context` produce structured logs with bound
       context fields present, verified by test using
       `structlog.testing.capture_logs`.
-- [ ] `init_tracing` is safely a no-op with no OTLP endpoint configured,
+- [x] `init_tracing` is safely a no-op with no OTLP endpoint configured,
       verified by test.
-- [ ] 100% of `common` public functions have type hints and pass `mypy
+- [x] 100% of `common` public functions have type hints and pass `mypy
       --strict`.
-- [ ] `TaskStatus`/`JobStatus` enums are defined once and imported (not
+- [x] `TaskStatus`/`JobStatus` enums are defined once and imported (not
       redefined) by every later spec that needs them.
-- [ ] Test coverage on `packages/common` ≥ 90% (unit tests only).
+- [x] Test coverage on `packages/common` ≥ 90% (unit tests only).

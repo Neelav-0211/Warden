@@ -31,6 +31,7 @@ select = ["B", "E", "F", "I", "UP"]
 [tool.mypy]
 python_version = "3.12"
 strict = true
+plugins = ["pydantic.mypy"]
 exclude = ["^\\.venv/", "^design/"]
 
 [tool.pytest.ini_options]
