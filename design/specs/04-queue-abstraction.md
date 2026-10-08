@@ -1,9 +1,9 @@
 # Spec 04: Queue Abstraction
 
-- **Status**: Not Started
+- **Status**: Done
 - **Phase**: 1
 - **Depends on**: 02
-- **Owns**: `packages/common/queue/`
+- **Owns**: `packages/common/src/common/queue/`
 
 ## Goal
 
@@ -39,7 +39,7 @@ class QueueProducer(Protocol):
 class QueueConsumer(Protocol):
     async def consume(self, queue: str, handler: Callable[[JobEnvelope], Awaitable[None]]) -> None: ...
 
-# common/queue/celery_impl.py
+# common/queue/backends/celery.py (also re-exported from celery_impl.py)
 class CeleryQueueProducer(QueueProducer): ...
 class CeleryQueueConsumer(QueueConsumer): ...
 ```
@@ -64,14 +64,25 @@ class CeleryQueueConsumer(QueueConsumer): ...
 
 ## Acceptance Criteria
 
-- [ ] `QueueProducer`/`QueueConsumer` `Protocol`s defined and documented
+- [x] `QueueProducer`/`QueueConsumer` `Protocol`s defined and documented
       with docstrings covering delivery semantics (at-least-once).
-- [ ] Contract test suite passes against the Celery/Redis implementation.
-- [ ] Retry policy is configuration-driven (max attempts, backoff),
+- [x] Contract test suite passes against the Celery/Redis implementation.
+- [x] Retry policy is configuration-driven (max attempts, backoff),
       verified by test that a handler failing exactly `max_attempts`
       times is not retried again.
-- [ ] Two services consuming different `queue` names never receive each
+- [x] Two services consuming different `queue` names never receive each
       other's jobs, verified by integration test with both queues active
       simultaneously.
-- [ ] `JobEnvelope` round-trips through serialize/deserialize with no
+- [x] `JobEnvelope` round-trips through serialize/deserialize with no
       data loss, verified by property-based or example-based test.
+
+   ## Implementation Notes
+
+   The portable protocols, envelope, and settings are separate from the Celery
+   adapter under `queue/backends/`. Queue tests and their Redis fixture live in
+   `packages/common/tests/queue/`; `QueueContract` also verifies cancellation and
+   redelivery. Attempts are one-based and include the initial delivery. Exhausted
+   jobs retain their final envelope in `<queue>.dead-letter`.
+
+   See the [common package guide](../../packages/common/README.md) for configuration,
+   retry timing, delivery guarantees, and test commands.

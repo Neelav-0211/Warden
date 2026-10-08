@@ -8,7 +8,7 @@ from testcontainers.community.postgres import PostgresContainer
 
 
 def _alembic_config(database_url: str) -> Config:
-    root = Path(__file__).parents[3]
+    root = Path(__file__).parents[4]
     config = Config(root / "alembic.ini")
     config.set_main_option("sqlalchemy.url", database_url)
     return config

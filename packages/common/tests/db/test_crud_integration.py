@@ -6,8 +6,9 @@ from common.db import DbSettings, get_engine, session_scope
 from common.db.models import Task, TaskStep, TaskStepKind
 from common.types import TaskStatus
 from sqlalchemy import func, select
-from test_migrations_integration import _alembic_config
 from testcontainers.community.postgres import PostgresContainer
+
+from .test_migrations_integration import _alembic_config
 
 
 @pytest.mark.integration

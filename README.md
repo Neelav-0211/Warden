@@ -48,11 +48,20 @@ Run all unit tests from the repository root with:
 uv run --all-packages pytest -m unit
 ```
 
-Run Docker-backed PostgreSQL integration tests with:
+Run Docker-backed PostgreSQL and Redis integration tests with:
 
 ```console
 uv run --package warden-common pytest packages/common/tests -m integration
 ```
+
+Run just the queue contract and retry integration tests with:
+
+```console
+uv run --package warden-common pytest packages/common/tests/queue -m integration
+```
+
+See the [common package guide](packages/common/README.md) for its layout,
+queue configuration, and producer/consumer usage.
 
 Run the `common` package tests with coverage and show uncovered lines with:
 
