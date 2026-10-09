@@ -1,6 +1,6 @@
 # Spec 05: Model Gateway — Core Interface
 
-- **Status**: Not Started
+- **Status**: In Progress
 - **Phase**: 1
 - **Depends on**: 02
 - **Owns**: `services/model-gateway/core/` (interface, capability registry,
@@ -86,15 +86,32 @@ class ModelGatewayRouter:
    and raises a clear `WardenError` subclass (e.g. `NoCapableProviderError`)
    when none qualify.
 
+## TODO
+
+- [ ] Research and design a configurable, context-aware routing layer
+  before treating the current capability-only router as a stable API.
+  Investigate routing inputs (operation/task purpose, context size,
+  latency and cost targets, privacy constraints, and caller preferences),
+  distinguish hard requirements from soft preferences, and compare
+  configurable rule/priority policies with scoring approaches. Define
+  how provider/model selection is represented, how routing decisions
+  can be explained and tested deterministically, and how the policy
+  interface can evolve without changing downstream callers. Record
+  findings and update the public interface and acceptance criteria
+  before implementation.
+
 ## Acceptance Criteria
 
-- [ ] `ModelProvider` Protocol and all request/response types are defined,
+- [x] `ModelProvider` Protocol and all request/response types are defined,
       typed, and documented.
-- [ ] `FakeModelProvider` passes the full contract test suite.
-- [ ] `ModelGatewayRouter.select` correctly filters by every field in
+- [x] `FakeModelProvider` passes the full contract test suite.
+- [x] `ModelGatewayRouter.select` correctly filters by every field in
       `Capabilities`, verified by test per field.
-- [ ] `select` with no qualifying provider raises a typed, catchable
+- [x] `select` with no qualifying provider raises a typed, catchable
       error (not a bare `KeyError`/`None`).
 - [ ] Every downstream spec (10, 12, 13) can run its full unit test suite
       using only `FakeModelProvider` — no network, no API keys required
       for `pytest -m unit`.
+
+The final criterion remains pending until specs 10, 12, and 13 have unit
+tests that consume this interface.
